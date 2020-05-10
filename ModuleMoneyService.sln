@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{8A179AE2-00A0-45F7-9B63-2CE054F342A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{57F6DFC6-3291-4907-8640-7583BEF34BB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth", "Auth\Auth.csproj", "{C107095C-2736-4C98-8B7A-51B105E7D9C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A179AE2-00A0-45F7-9B63-2CE054F342A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A179AE2-00A0-45F7-9B63-2CE054F342A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A179AE2-00A0-45F7-9B63-2CE054F342A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A179AE2-00A0-45F7-9B63-2CE054F342A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C107095C-2736-4C98-8B7A-51B105E7D9C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C107095C-2736-4C98-8B7A-51B105E7D9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C107095C-2736-4C98-8B7A-51B105E7D9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C107095C-2736-4C98-8B7A-51B105E7D9C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C107095C-2736-4C98-8B7A-51B105E7D9C9} = {57F6DFC6-3291-4907-8640-7583BEF34BB1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F637ED86-A424-461B-B13A-D932A94EEF72}
+	EndGlobalSection
+EndGlobal
