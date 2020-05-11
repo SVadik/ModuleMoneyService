@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Account\Accounts.csproj" />
     <ProjectReference Include="..\Auth\Auth.csproj" />
   </ItemGroup>
 

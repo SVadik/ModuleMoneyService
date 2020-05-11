@@ -10,16 +10,39 @@ CREATE SEQUENCE public.users_id_seq
 
 ALTER SEQUENCE public.users_id_seq RESTART WITH 1;
 
-CREATE TABLE public."Users" (
-  "Id" INTEGER DEFAULT nextval('public.users_id_seq'::text::regclass) NOT NULL,
-  "Username" VARCHAR(355) NOT NULL,
-  "Firstname" VARCHAR(500) NOT NULL,
-  "Salt" VARCHAR(128) NOT NULL,
-  "Password" VARCHAR(255) NOT NULL,
-  CONSTRAINT "Users_Username_key" UNIQUE("Username"),
-  CONSTRAINT "Users_pkey" PRIMARY KEY("Id")
+CREATE TABLE public.users (
+  id SERIAL,
+  username VARCHAR(355) NOT NULL,
+  firstname VARCHAR(500) NOT NULL,
+  salt VARCHAR(128) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  CONSTRAINT "Users_Username_key" UNIQUE(username),
+  CONSTRAINT "Users_pkey" PRIMARY KEY(id)
 ) ;
 
 
-ALTER TABLE public."Users"
+ALTER TABLE public.users
+  OWNER TO postgres;
+
+CREATE SEQUENCE accounts_number_seq
+  INCREMENT 1
+  MINVALUE 4000000000
+  MAXVALUE 9223372036854775807
+  START 4000000000
+  CACHE 1;
+
+CREATE TABLE public.accounts (
+  number BIGSERIAL,
+  user_id INTEGER NOT NULL,
+  balance NUMERIC(15,4) NOT NULL,
+  CONSTRAINT accounts_pkey PRIMARY KEY(number),
+  CONSTRAINT accounts_user_id_fkey FOREIGN KEY (user_id)
+    REFERENCES public.users(id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE
+) ;
+
+
+ALTER TABLE public.accounts
   OWNER TO postgres;

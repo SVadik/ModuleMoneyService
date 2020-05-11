@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Accounts;
 using Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,7 @@ namespace WebApi
         {
             services.Configure<AuthOptions>(Configuration.GetSection("DBInfo"));
             services.AddTransient<IUserService, UserService>(provider => new UserService(Configuration.GetConnectionString("ModuleDb")));
+            services.AddTransient<IAccountService, AccountService>(provider => new AccountService(Configuration.GetConnectionString("ModuleDb")));
 
             services.Configure<AuthOptions>(Configuration.GetSection("AuthOptions"));
 

@@ -32,8 +32,10 @@ namespace WebApi.Controllers
         {
             if(_service.IsValidUser(user.Username, user.Password))
             {
+                var userId = _service.GetByUsername(user.Username).Id;
                 var authClaims = new[]
                 {
+                    new Claim(ClaimTypes.Name, userId.ToString()),
                     new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
@@ -60,7 +62,7 @@ namespace WebApi.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody]RegisterUserModel model)
         {
-            var user = _service.Create(new User(model.Username, model.Password, model.Firstname));
+            var user = _service.Create(new User(model.Username, model.Firstname, model.Password));
 
             if (user == null)
                 return BadRequest(new { message = "Username is already taken" });

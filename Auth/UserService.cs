@@ -53,7 +53,7 @@ namespace Auth
         {
             using (IDbConnection db = Connection)
             {
-                return db.QuerySingleOrDefault<User>("SELECT \"Id\", \"Username\", \"Salt\", \"Password\" FROM public.\"Users\" WHERE \"Username\" = @username", new { username });
+                return db.QuerySingleOrDefault<User>("SELECT id, username, firstname FROM public.users WHERE username = @username", new { username });
             }
         }
 
@@ -68,7 +68,7 @@ namespace Auth
             
             using (IDbConnection db = Connection)
             {
-                var sqlQuery = "INSERT INTO \"Users\" ( \"Username\", \"Firstname\", \"Salt\", \"Password\") VALUES(@Username, @Firstname, @Salt, @Password)";
+                var sqlQuery = "INSERT INTO users ( username, firstname, salt, password) VALUES(@Username, @Firstname, @Salt, @Password)";
                 db.Execute(sqlQuery, user);
 
                 //var sqlQuery = "INSERT INTO Users ( Username, Salt, PasswordHash) VALUES(@Username, @Salt, @PasswordHash); SELECT CAST(SCOPE_IDENTITY() as int)";
@@ -82,7 +82,7 @@ namespace Auth
         {
             using (IDbConnection db = Connection)
             {
-                var sqlQuery = "UPDATE \"Users\" SET \"Firstname\" = @Firstame, \"Salt\" = @Salt, \"Password\" = @Password WHERE \"Id\" = @Id";
+                var sqlQuery = "UPDATE users SET firstname = @Firstame, salt = @Salt, password = @Password WHERE id = @Id";
                 db.Execute(sqlQuery, user);
             }
         }
@@ -91,7 +91,7 @@ namespace Auth
         {
             using (IDbConnection db = Connection)
             {
-                var sqlQuery = "DELETE FROM \"Users\" WHERE \"Id\" = @id";
+                var sqlQuery = "DELETE FROM users WHERE id = @id";
                 db.Execute(sqlQuery, new { id });
             }
         }

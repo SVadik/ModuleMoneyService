@@ -6,7 +6,14 @@ namespace Auth
 {
     public class User
     {
-        public User(string username, string password, string firstname)
+        public User(int id, string username, string firstname)
+        {
+            Id = id;
+            Username = username;
+            Firstname = firstname;
+        }
+
+        public User(string username, string firstname, string password)
         {
             Username = username;
             _password = new Password(password);
