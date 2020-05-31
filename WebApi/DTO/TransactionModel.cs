@@ -9,8 +9,6 @@ namespace WebApi.DTO
     {
         public long FromNumber { get; set; }
         public long ToNumber { get; set; }
-        public int UserId { get; set; }
         public decimal Value { get; set; }
-        public char Sign { get; set; }
     }
 }

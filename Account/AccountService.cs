@@ -16,6 +16,7 @@ namespace Accounts
         long Create(Account account);
         Account Get(long number);
         void Update(Account account);
+        void TransferMoney(Account fromAaccount, Account ToAccount, decimal value);
         void Delete(long number);
     }
 
@@ -100,5 +101,18 @@ namespace Accounts
                 db.Execute(sqlQuery, new { number });
             }
         }
+
+        public void TransferMoney(Account fromAaccount, Account ToAccount, decimal value)
+        {
+            MoneyTransaction moneyTransaction = new MoneyTransaction(fromAaccount, ToAccount, value);
+            using (IDbConnection db = Connection)
+            {
+                var sqlQuery = "UPDATE public.accounts SET balance = balance - @Value WHERE number = @FromNumber;" +
+                               "UPDATE public.accounts SET balance = balance + @Value WHERE number = @ToNumber;" +
+                               "INSERT INTO public.money_transactions (date, from_number, to_number, from_userid, to_userid, amount) VALUES(@Date, @FromNumber, @ToNumber, @FromUserId, @ToUserId, @Amount);";
+                db.Execute(sqlQuery, moneyTransaction);
+            }
+        }
+
     }
 }

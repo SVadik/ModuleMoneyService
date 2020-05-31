@@ -31,7 +31,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody]AccountModel model)
+        public IActionResult Register()
         {
             var account = _service.Create(new Account(Convert.ToInt32(User.Identity.Name)));
 
@@ -55,6 +55,11 @@ namespace WebApi.Controllers
         [HttpPost("send")]
         public IActionResult Send([FromBody]TransactionModel model)
         {
+            if(model.Value <= 0)
+            {
+                return BadRequest(new { message = "Sending value less then 0" });
+            }
+
             //Переписать в метод сервиса
             var dbAccount = _service.GetUserAccount(Convert.ToInt32(User.Identity.Name), model.FromNumber);
             if (dbAccount == null)
@@ -72,10 +77,10 @@ namespace WebApi.Controllers
                 return BadRequest(new { message = "Receiving account does not exist" });
             }
 
-            dbAccount.Balance -= model.Value;
-            receivingAccount.Balance += model.Value;
-            _service.Update(dbAccount);
-            _service.Update(receivingAccount);
+            //dbAccount.Balance -= model.Value;
+            //receivingAccount.Balance += model.Value;
+            _service.TransferMoney(dbAccount, receivingAccount, model.Value);
+            //_service.Update(receivingAccount);
 
             return Ok();
         }

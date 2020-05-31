@@ -46,3 +46,14 @@ CREATE TABLE public.accounts (
 
 ALTER TABLE public.accounts
   OWNER TO postgres;
+
+CREATE TABLE public.money_transactions (
+  id BIGSERIAL NOT NULL,
+  date TIMESTAMP(0) WITH TIME ZONE,
+  from_number BIGINT,
+  to_number BIGINT,
+  from_userid INTEGER,
+  to_userid INTEGER,
+  amount NUMERIC(15,4),
+  PRIMARY KEY(id)
+) ;

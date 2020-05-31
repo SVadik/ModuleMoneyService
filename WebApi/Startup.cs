@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi
@@ -29,6 +30,8 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            IdentityModelEventSource.ShowPII = true;
             services.Configure<AuthOptions>(Configuration.GetSection("DBInfo"));
             services.AddTransient<IUserService, UserService>(provider => new UserService(Configuration.GetConnectionString("ModuleDb")));
             services.AddTransient<IAccountService, AccountService>(provider => new AccountService(Configuration.GetConnectionString("ModuleDb")));
@@ -66,6 +69,12 @@ namespace WebApi
             }
 
             app.UseRouting();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();

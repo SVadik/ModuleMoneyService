@@ -32,10 +32,10 @@ namespace WebApi.Controllers
         {
             if(_service.IsValidUser(user.Username, user.Password))
             {
-                var userId = _service.GetByUsername(user.Username).Id;
+                var dbUser = _service.GetByUsername(user.Username);
                 var authClaims = new[]
                 {
-                    new Claim(ClaimTypes.Name, userId.ToString()),
+                    new Claim(ClaimTypes.Name, dbUser.Id.ToString()),
                     new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
@@ -53,7 +53,9 @@ namespace WebApi.Controllers
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    expiration = token.ValidTo,
+                    success = true,
+                    message = dbUser.Firstname
                 });
             }
             return Unauthorized();
@@ -67,7 +69,10 @@ namespace WebApi.Controllers
             if (user == null)
                 return BadRequest(new { message = "Username is already taken" });
 
-            return Ok();
+            return Ok(new {
+                success = true,
+                message = user.Firstname
+            });
         }
     }
 }
